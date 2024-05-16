@@ -4,8 +4,8 @@ SAGE = sage
 usage:
 	@echo ""
 	@echo "USAGE"
-	@echo "  make lpkbessel: compiles bessel computation for sage"
-	@echo "  make clean: clears compiled objects"
+	@echo "  make lpkbessel.so - compiles bessel computation for sage"
+	@echo "  make clean - clears compiled objects"
 	@echo ""
 
 
