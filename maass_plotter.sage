@@ -31,10 +31,14 @@ This also requires imagemagick (and in particular, `convert`) to be available.
 """
 from base64 import b64encode
 from io import BytesIO as IO
+import matplotlib as mpl
+from matplotlib import cm
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from urllib.parse import quote
+from matplotlib.colors import ListedColormap, LinearSegmentedColormap
+import numpy as np
 import subprocess
 import sys
+from urllib.parse import quote
 
 
 from lpkbessel import besselk_dp
@@ -42,6 +46,26 @@ from maass_evaluator import maassform
 
 
 DtoH = lambda x: (-CDF.0*x + 1)/(x - CDF.0)
+
+
+Overall_HEX = {
+    "blue": "#4677CB",
+    "lilac": "#BF8FEC",
+    "green": "#60B489",
+    "orange": "#E69367",
+    "red": "#D76055",
+}
+torder = ["blue", "lilac", "orange", "green", "red"]
+tcmap = LinearSegmentedColormap.from_list(
+    "tcmap",
+    [mpl.colors.to_rgb(Overall_HEX[cname]) for cname
+        in reversed(torder)]
+)
+tcmap_cyclic = LinearSegmentedColormap.from_list(
+    "tcmap_cyclic",
+    [mpl.colors.to_rgb(Overall_HEX[cname]) for cname in torder[:-1]] +
+    [mpl.colors.to_rgb(Overall_HEX[cname]) for cname in reversed(torder)]
+)
 
 
 def make_single_plot(R, symmetry, coeffs):
@@ -54,8 +78,7 @@ def make_single_plot(R, symmetry, coeffs):
             lambda z: +Infinity if abs(z) >= 0.99 else fcc(DtoH(z)),
             (-1, 1), (-1, 1),
             plot_points=300, aspect_ratio=1, figsize=[2.2, 2.2],
-            # TODO extra options?
-            cmap='matplotlib')
+            contoured=True, dark_rate=0.5, cmap=tcmap)
     P.axes(False)
     return P
 
@@ -100,11 +123,15 @@ def make_transparent_version(oldname, newname):
     )
 
 
+def add_header(outfile):
+    outfile.write("maass_label|portrait\n\n")
+
+
 def make_plots_for_level(level=1):
     from lmfdb import db
     cursor = db.maass_rigor.search(query={'level': level}, projection=2)
     with open(f"level.{level}.plots.data", "w", encoding="utf8") as outfile:
-        # TODO add header to outfile
+        add_header(outfile)
         for record in cursor:
             label = record['maass_label']
             print(label)
