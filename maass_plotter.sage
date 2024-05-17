@@ -29,11 +29,12 @@ This also requires imagemagick (and in particular, `convert`) to be available.
 #                 <http://www.gnu.org/licenses/>.
 # **********************************************************************
 """
+from base64 import b64encode
 from io import BytesIO as IO
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from base64 import b64encode
 from urllib.parse import quote
 import subprocess
+import sys
 
 
 from lpkbessel import besselk_dp
@@ -111,4 +112,6 @@ def make_plots_for_level(level=1):
 
 
 if __name__ == "__main__":
-    make_plots_for_level()
+    arg = int(sys.argv[1])
+    print(f"Making plots for level {arg}")
+    make_plots_for_level(level=arg)
