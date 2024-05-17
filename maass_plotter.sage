@@ -1,4 +1,14 @@
 """
+This expects compiled versions of `lpkbessel.spyx` and
+`maass_evaluator.spyx`. On typical machines, this can be done by typing
+
+    make compile
+
+in this repository. (The makefile isn't particularly portable, but there's so
+little to it that it's straightforward to modify).
+
+This also requires imagemagick (and in particular, `convert`) to be available.
+
 # **********************************************************************
 #       This is maass_plotter.sage
 #       Copyright (c) 2024 David Lowry-Duda <david@lowryduda.com>
