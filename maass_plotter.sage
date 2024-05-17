@@ -92,9 +92,23 @@ def make_plot_for_lmfdb_by_label(label):
     make_plot_for_lmfdb_by_record(record)
 
 
-
 def make_transparent_version(oldname, newname):
     # Requires imagemagick
     subprocess.run(
         ['convert', oldname, '-fuzz', '3%', '-transparent', 'white', newname]
     )
+
+
+def make_plots_for_level(level=1):
+    from lmfdb import db
+    cursor = db.maass_rigor.search(query={'level': level}, projection=2)
+    with open(f"level.{level}.plots.data", "w", encoding="utf8") as outfile:
+        # TODO add header to outfile
+        for record in cursor:
+            print(record['maass_label'])
+            data = make_plot_for_lmfdb_by_record(record)
+            outfile.write(f"{label}|{data}\n")
+
+
+if __name__ == "__main__":
+    make_plots_for_level()
