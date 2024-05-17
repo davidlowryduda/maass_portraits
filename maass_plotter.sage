@@ -106,7 +106,8 @@ def make_plots_for_level(level=1):
     with open(f"level.{level}.plots.data", "w", encoding="utf8") as outfile:
         # TODO add header to outfile
         for record in cursor:
-            print(record['maass_label'])
+            label = record['maass_label']
+            print(label)
             data = make_plot_for_lmfdb_by_record(record)
             outfile.write(f"{label}|{data}\n")
 
