@@ -103,8 +103,8 @@ def besselk_dp(double R,double x,double prec=1e-14,int pref=0):
         - `x` -- argument (double)
         - `prec` -- precision (default 1E-14, double)
         - `pref` -- use prefactor (integer, default 0)
-                    = 1 => computes K_iR(x)*exp(pi*R/2)
-                    = 0 => computes K_iR(x)
+            = 1 => computes K_iR(x)*exp(pi*R/2)
+            = 0 => computes K_iR(x)
 
     OUTPUT:
 
@@ -112,7 +112,7 @@ def besselk_dp(double R,double x,double prec=1e-14,int pref=0):
 
     EXAMPLES::
 
-        sage: besselk_dp_rec(10.0,5.0)
+        sage: besselk_dp_rec(10.0, 5.0, pref=1)
         -0.7183327166568183
         sage: besselk_dp_rec(10.0,3.0)
         -6.3759939798738967e-08
@@ -135,6 +135,7 @@ def besselk_dp(double R,double x,double prec=1e-14,int pref=0):
         res=besselk_dp_rec(RR,x,prec,pref)
     return res
 
+
 def besselk_dp_rec(double R,double x,double prec=1e-14,int pref=0):   # |r| <<1000, x >> 0 !
     r"""
     Modified K-Bessel function in double precision using the backwards
@@ -145,8 +146,8 @@ def besselk_dp_rec(double R,double x,double prec=1e-14,int pref=0):   # |r| <<10
         - ''x'' -- double
         - ''prec'' -- (default 1E-12) double
         - ''pref'' -- (default 1) int
-                      = 1 => computes K_iR(x)*exp(pi*R/2)
-                      = 0 => computes K_iR(x)
+              = 1 => computes K_iR(x)*exp(pi*R/2)
+              = 0 => computes K_iR(x)
 
     OUTPUT:
 
@@ -245,8 +246,8 @@ def besselk_dp_pow(double R,double x,prec=1E-12,pref=0):
         - `x` -- argument (double)
         - `prec` -- precision (double)
         - `pref` -- use prefactor (integer, default 0)
-                    = 1 => computes K_iR(x)*exp(pi*R/2)
-                    = 0 => computes K_iR(x)
+            = 1 => computes K_iR(x)*exp(pi*R/2)
+            = 0 => computes K_iR(x)
 
     OUTPUT:
 
