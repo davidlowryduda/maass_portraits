@@ -4,10 +4,15 @@ SAGE = sage
 usage:
 	@echo ""
 	@echo "USAGE"
+	@echo "  make compile - compile necessary things for sage"
 	@echo "  make lpkbessel.so - compiles bessel computation for sage"
 	@echo "  make maass_evaluator.so - compiles maass evaluator for sage"
 	@echo "  make clean - clears compiled objects"
 	@echo ""
+
+
+.PHONY: compile
+compile: lpkbessel.so maass_evaluator.so
 
 
 lpkbessel.so: lpkbessel.spyx
