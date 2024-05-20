@@ -8,15 +8,15 @@ Experiments.ipynb).
 
 This repository contains four other files of interest.
 
-- [./lpkbessel.spyx](lpkbessel.spyx), a cython file for sage that includes
+- [lpkbessel.spyx](./lpkbessel.spyx), a cython file for sage that includes
   fast, double precision routines to compute K-Bessel functions. These are
   mostly taken from Fredrik Strömberg.
-- [./maass_evaluator.spyx](maass_evaluator.spyx), a cython file for sage that
+- [maass_evaluator.spyx](./maass_evaluator.spyx), a cython file for sage that
   has rudimentary logic to quickly compute approximations to Maass forms. There
   is nothing particularly special here &mdash; we don't use modularity or
   anything clever. But the math functions are in C or cython, and cython seems
   capable of doing loop-speedup-magic without extra work on my part.
-- a [./Makefile](Makefile) that knows how to compile the two cython files above
+- a [Makefile](./Makefile) that knows how to compile the two cython files above
   on linux systems. Type `make usage` or just `make` to see a brief message on
   what compilation options are available. In practice, you'll want to type
   `make compile` and then your sage will try to compile the two cython files
@@ -24,7 +24,7 @@ This repository contains four other files of interest.
 
   I don't know anything about sage or cython on Windows, but presumably this
   either just works or is easy to modify.
-- [./maass_plotter.sage](maass_plotter.sage), which contains the plotting logic
+- [maass_plotter.sage](./maass_plotter.sage), which contains the plotting logic
   used to produce Maass form plots in the LMFDB.
 
 
