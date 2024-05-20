@@ -75,10 +75,10 @@ def make_single_plot(R, symmetry, coeffs):
     """
     fcc = maassform(R, symmetry, coeffs)
     P = complex_plot(
-            lambda z: +Infinity if abs(z) >= 0.99 else fcc(DtoH(z)),
+            lambda z: +Infinity if abs(z) >= 0.99 else 1j * fcc(DtoH(z)),
             (-1, 1), (-1, 1),
             plot_points=300, aspect_ratio=1, figsize=[2.2, 2.2],
-            contoured=True, dark_rate=0.5, cmap=tcmap)
+            contoured=True, dark_rate=0.5, cmap="viridis")
     P.axes(False)
     return P
 
@@ -124,17 +124,22 @@ def make_transparent_version(oldname, newname):
 
 
 def add_header(outfile):
-    outfile.write("maass_label|portrait\n\n")
+    outfile.write("maass_label|portrait\n")
+    outfile.write("text|text\n\n")
 
 
 def make_plots_for_level(level=1):
     from lmfdb import db
-    cursor = db.maass_rigor.search(query={'level': level}, projection=2)
+    cursor = db.maass_rigor.search(query={'level': level}, projection=1)
+    # it takes long enough to process all forms that the db connection might
+    # grow stale. Instead, get the list and get data per form.
+    all_forms = list(cursor)
     with open(f"level.{level}.plots.data", "w", encoding="utf8") as outfile:
         add_header(outfile)
-        for record in cursor:
-            label = record['maass_label']
+        for form in all_forms:
+            label = form['maass_label']
             print(label)
+            record = db.maass_rigor.lookup(label)
             data = make_plot_for_lmfdb_by_record(record)
             outfile.write(f"{label}|{data}\n")
 
