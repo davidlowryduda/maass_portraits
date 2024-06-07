@@ -3,8 +3,8 @@
 
 This is code used for producing images of Maass forms. Several examples of how
 this code works and how to use it to produce images of Maass forms can be found
-in the sagemath notebook [./notebook/Maass Experiments.ipynb](Maass
-Experiments.ipynb).
+in the sagemath notebook [Maass
+Experiments.ipynb](./notebook/Maass%20Experiments.ipynb).
 
 This repository contains four other files of interest.
 
